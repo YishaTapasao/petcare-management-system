@@ -16,7 +16,6 @@ public class Pet {
         System.out.println("4. DELETE PET DETAIL");        
         System.out.println("5. EXIT");      
         
-        System.out.print("Enter Selection: ");        
         int action = -1;
 
         while (action < 1 || action > 5) {
@@ -26,7 +25,7 @@ public class Pet {
            action = sc.nextInt();   
            
         if (action < 1 || action > 5) {        
-            System.out.println("Invalid input. Please choose a number between 1 and 5.");
+            System.out.println("Invalid input. Please choose a number from 1 to 5.");
         }
             
         } else {
@@ -74,21 +73,62 @@ public class Pet {
     }while(response.equalsIgnoreCase("yes"));  
     }
   
-    public void addPetDetails(){
+//    public void addPetDetails(){
+//      Scanner sc = new Scanner(System.in);
+//      
+//      do{
+//      System.out.print("Enter Owner ID: ");
+//      String oid = sc.next();
+//      String osql = "SELECT o_id FROM tbl_owner WHERE o_id = ?";
+//      
+//      }while(conf.getSingleValue(osql, oId)==0);
+// 
+//         System.out.println("Owner does not exist, Select Again: ");
+//         oId = sc.nextInt();  
+//   
+//      System.out.print("Enter Pet Name: ");
+//      String pname = sc.next();
+//      System.out.print("Enter Pet Breed: ");
+//      String pbreed = sc.next();
+//      sc.nextLine();
+//      System.out.print("Enter Pet Age: ");
+//      String page = sc.nextLine();  
+//
+//      String qry = "INSERT INTO tbl_pet (p_name, p_breed, p_age) VALUES (?, ?, ?)";
+//      config conf = new config();
+//      conf.addRecord(qry, pname, pbreed, page);
+//}
+        
+    public void addPetDetails() {
       Scanner sc = new Scanner(System.in);
+      config conf = new config();
+
+      Owner os = new Owner();
+      os.viewOwnerDetails();
+
+      System.out.print("Enter the ID of the Owner: ");
+      int oId = sc.nextInt();
+    
+          String osql = "SELECT o_id FROM tbl_owner WHERE o_id = ?"; 
+          while(conf.getSingleValue(osql, oId) == 0) {
+                System.out.println("Owner does not exist. Please try again.");
+                oId = sc.nextInt();
+    }
 
       System.out.print("Enter Pet Name: ");
       String pname = sc.next();
       System.out.print("Enter Pet Breed: ");
       String pbreed = sc.next();
-      sc.nextLine();
+      sc.nextLine(); 
       System.out.print("Enter Pet Age: ");
-      String page = sc.nextLine();  
+      String page = sc.nextLine();
 
-      String qry = "INSERT INTO tbl_pet (p_name, p_breed, p_age) VALUES (?, ?, ?)";
-      config conf = new config();
-      conf.addRecord(qry, pname, pbreed, page);
-}
+      String qry = "INSERT INTO tbl_pet (o_id, p_name, p_breed, p_age, o_id) VALUES (?, ?, ?, ?, ?)";
+      conf.addRecord(qry, oId, pname, pbreed, page, oId);
+      
+    }
+
+    
 
     public void viewPetDetails(){
         

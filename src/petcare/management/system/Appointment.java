@@ -16,7 +16,6 @@ public class Appointment {
         System.out.println("4. DELETE APPOINTMENT DETAIL");        
         System.out.println("5. EXIT");      
         
-        System.out.print("Enter Selection: ");
         int action = -1;
 
         while (action < 1 || action > 5) {
@@ -26,7 +25,7 @@ public class Appointment {
            action = sc.nextInt();   
            
         if (action < 1 || action > 5) {        
-            System.out.println("Invalid input. Please choose a number between 1 and 5.");
+            System.out.println("Invalid input. Please choose a number from 1 to 5.");
         }
             
         } else {
