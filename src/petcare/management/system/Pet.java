@@ -105,16 +105,26 @@ public class Pet {
 
       Owner os = new Owner();
       os.viewOwnerDetails();
-
-      System.out.print("Enter the ID of the Owner: ");
-      int oId = sc.nextInt();
+      int oId = -1;
     
-          String osql = "SELECT o_id FROM tbl_owner WHERE o_id = ?"; 
-          while(conf.getSingleValue(osql, oId) == 0) {
-                System.out.println("Owner does not exist. Please try again.");
-                oId = sc.nextInt();
+      while (true) {
+        System.out.print("Enter the ID of the Owner: ");
+        
+        if (sc.hasNextInt()) {
+            oId = sc.nextInt();
+            
+      String osql = "SELECT o_id FROM tbl_owner WHERE o_id = ?";
+        if (conf.getSingleValue(osql, oId) != 0) {
+        break;
+        } else {
+            System.out.println("Owner does not exist. Please try again.");
+        }
+        } else {
+            System.out.println("Invalid input. Please enter a valid number for Owner ID.");
+            sc.next();
+        }
     }
-
+      
       System.out.print("Enter Pet Name: ");
       String pname = sc.next();
       System.out.print("Enter Pet Breed: ");

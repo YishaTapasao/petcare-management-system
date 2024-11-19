@@ -132,10 +132,7 @@ public class Reports {
     while (true) {
         System.out.print("Enter the Owner ID: ");
         if (sc.hasNextInt()) {
-            ownerId = sc.nextInt();
-            
-       Owner os = new Owner();
-       os.viewOwnerDetails();      
+            ownerId = sc.nextInt();   
        
         if (ownerId > 0) {
                 break;
