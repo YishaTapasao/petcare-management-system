@@ -125,6 +125,70 @@ public class Reports {
 //}
        
     
+//    public void viewOwnerWithPetDetails() {
+//    Scanner sc = new Scanner(System.in);
+//    int ownerId;
+//
+//    while (true) {
+//        System.out.print("Enter the Owner ID: ");
+//        if (sc.hasNextInt()) {
+//            ownerId = sc.nextInt();   
+//       
+//        if (ownerId > 0) {
+//                break;
+//        } else {
+//                System.out.println("You have input an incorrect number. Please enter a positive Owner ID.");
+//            }
+//        } else {
+//            System.out.println("Invalid input. Please enter a valid Owner ID.");
+//            sc.next();
+//        }
+//    }
+//
+//      String qry = "SELECT tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_pet.p_breed " +
+//                 "FROM tbl_owner " +
+//                 "LEFT JOIN tbl_pet ON tbl_owner.o_id = tbl_pet.o_id " +
+//                 "WHERE tbl_owner.o_id = " + ownerId;
+//    
+//      String[] hdrs = {"OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "PET BREED"};
+//      String[] clms = {"o_id", "o_fname", "o_lname", "p_id", "p_name", "p_breed"};   
+//      config conf = new config();
+//      conf.viewRecords(qry, hdrs, clms);
+//}
+
+//    public void viewOwnerWithPetDetails() {
+//    Scanner sc = new Scanner(System.in);
+//    int ownerId;
+//
+//    while (true) {
+//        System.out.print("Enter the Owner ID: ");
+//        if (sc.hasNextInt()) {
+//            ownerId = sc.nextInt();
+//
+//            if (ownerId > 0) {
+//                break;
+//            } else {
+//                System.out.println("You have input an incorrect number. Please enter a positive Owner ID.");
+//            }
+//        } else {
+//            System.out.println("Invalid input. Please enter a valid Owner ID.");
+//            sc.next();
+//        }
+//    }
+//
+//    String qry = "SELECT tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_pet.p_breed, tbl_appointment.date, tbl_appointment.time " +
+//                 "FROM tbl_owner " +
+//                 "LEFT JOIN tbl_pet ON tbl_owner.o_id = tbl_pet.o_id " +
+//                 "LEFT JOIN tbl_appointment ON tbl_pet.p_id = tbl_appointment.p_id " +
+//                 "WHERE tbl_owner.o_id = " + ownerId;
+//
+//    String[] hdrs = {"OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "PET BREED", "APPOINTMENT DATE", "APPOINTMENT TIME"};
+//    String[] clms = {"o_id", "o_fname", "o_lname", "p_id", "p_name", "p_breed", "date", "time"};   
+//    config conf = new config();
+//    System.out.println("\nDisplaying details for Owner ID: " + ownerId + "\n");
+//    conf.viewRecords(qry, hdrs, clms);
+//}
+//    
     public void viewOwnerWithPetDetails() {
     Scanner sc = new Scanner(System.in);
     int ownerId;
@@ -132,11 +196,11 @@ public class Reports {
     while (true) {
         System.out.print("Enter the Owner ID: ");
         if (sc.hasNextInt()) {
-            ownerId = sc.nextInt();   
-       
-        if (ownerId > 0) {
+            ownerId = sc.nextInt();
+
+            if (ownerId > 0) {
                 break;
-        } else {
+            } else {
                 System.out.println("You have input an incorrect number. Please enter a positive Owner ID.");
             }
         } else {
@@ -145,18 +209,19 @@ public class Reports {
         }
     }
 
-      String qry = "SELECT tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_pet.p_breed " +
+    String qry = "SELECT tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_pet.p_breed, tbl_appointment.date, tbl_appointment.time " +
                  "FROM tbl_owner " +
                  "LEFT JOIN tbl_pet ON tbl_owner.o_id = tbl_pet.o_id " +
+                 "LEFT JOIN tbl_appointment ON tbl_pet.p_id = tbl_appointment.p_id " +
                  "WHERE tbl_owner.o_id = " + ownerId;
-    
-      String[] hdrs = {"OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "PET BREED"};
-      String[] clms = {"o_id", "o_fname", "o_lname", "p_id", "p_name", "p_breed"};   
-      config conf = new config();
-      conf.viewRecords(qry, hdrs, clms);
-}
 
+    String[] hdrs = {"OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "PET BREED", "APPOINTMENT DATE", "APPOINTMENT TIME"};
+    String[] clms = {"o_id", "o_fname", "o_lname", "p_id", "p_name", "p_breed", "date", "time"};
     
+    config conf = new config();
+    System.out.println("\nDisplaying details for Owner ID: " + ownerId + "\n");
+    conf.viewRecords(qry, hdrs, clms);
+}
 
         
     
