@@ -105,35 +105,49 @@ public class Owner {
       conf.viewRecords(qry, hdrs, clms);               
     }
     
+
+    public void updateOwnerDetails() {
+    Scanner sc = new Scanner(System.in);
+    config conf = new config();
+
+    int id = -1;
     
-    private void updateOwnerDetails(){
-        Scanner sc = new Scanner(System.in);
-        config conf = new config();
-        System.out.println("Enter Owner ID to update: ");
-        int id = sc.nextInt();
+    while (true) {
+        System.out.print("Enter Owner ID to update: ");
         
-        while(conf.getSingleValue("SELECT o_id FROM tbl_owner WHERE o_id = ?",id)==0){
-            System.out.println("Selected ID doesn't exist!");
-            System.out.println("Select Owner ID Again: ");
-            id = sc.nextInt();     
+        if (sc.hasNextInt()) {
+            id = sc.nextInt();
+
+        String osql = "SELECT o_id FROM tbl_owner WHERE o_id = ?";
+        if (conf.getSingleValue(osql, id) != 0) {
+            break;
+        } else {
+          System.out.println("Owner ID does not exist. Please try again.");
+            }
+        } else {
+          System.out.println("Invalid input. Please enter a valid number for Owner ID.");
+          sc.next();
         }
-        
-        sc.nextLine();
-        System.out.print("New First Name: ");
-        String fname = sc.nextLine();
-        System.out.print("New last Name: ");
-        String lname = sc.nextLine();
-        System.out.print("New Address: ");
-        String address = sc.nextLine();
-        System.out.print("New Contact Number: ");
-        String contact = sc.nextLine();
-        System.out.print("New Email: ");
-        String email = sc.next();
-       
-        String qry = "UPDATE tbl_owner SET o_fname = ?, o_lname = ?, o_address = ?, o_contact = ?, o_email = ? WHERE o_id = ?";
-        conf.updateRecord(qry,fname, lname, address, contact, email, id);
     }
-    
+
+    sc.nextLine();
+    System.out.print("Enter new First Name: ");
+    String fname = sc.nextLine();
+    System.out.print("Enter new Last Name: ");
+    String lname = sc.nextLine();
+    System.out.print("Enter new Address: ");
+    String address = sc.nextLine();
+    System.out.print("Enter new Contact Number: ");
+    String contact = sc.nextLine();
+    System.out.print("Enter new Email: ");
+    String email = sc.next();
+
+    String qry = "UPDATE tbl_owner SET o_fname = ?, o_lname = ?, o_address = ?, o_contact = ?, o_email = ? WHERE o_id = ?";
+    conf.updateRecord(qry, fname, lname, address, contact, email, id);
+
+    System.out.println("Owner details updated successfully!");
+}
+
     
     public void deleteOwnerDetails(){
         Scanner sc = new Scanner(System.in);

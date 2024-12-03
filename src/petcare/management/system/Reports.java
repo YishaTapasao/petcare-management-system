@@ -16,11 +16,8 @@ public class Reports {
         System.out.println("1. OWNER REPORT");               
         System.out.println("2. PET REPORT");        
         System.out.println("3. OWNER WITH PET REPORT");        
-        System.out.println("4. APPOINTMENT REPORT(ALL)");        
-        System.out.println("5. APPOINTMENT REPORT (TODAY)");      
-        System.out.println("6. APPOINTMENT REPORT (WEEK)");      
-        System.out.println("7. APPOINTMENT REPORT (MONTH)");    
-        System.out.println("8. EXIT");
+        System.out.println("4. APPOINTMENT REPORT(ALL)");          
+        System.out.println("5. EXIT");
         
         int action = -1;
 
@@ -64,19 +61,6 @@ public class Reports {
                 break;
                 
             case 5:
-                viewTodayAppointments();
-
-                break;
-                
-            case 6:
-                viewThisWeekAppointments();
-                break;
-                
-            case 7:
-                viewThisMonthAppointments();
-                break;
-                
-            case 8:
                 break;
                 
         }
@@ -104,123 +88,37 @@ public class Reports {
     
 }
     
-//    public void viewOwnerWithPetDetails() {
-//      String qry = "SELECT tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_pet.p_breed " +
-//                   "FROM tbl_owner " +
-//                   "LEFT JOIN tbl_pet ON tbl_owner.o_id = tbl_pet.p_id";
-//      String[] hdrs = {"OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "PET BREED"};
-//      String[] clms = {"o_id", "o_fname", "o_lname", "p_id", "p_name", "p_breed"};
-//      config conf = new config();
-//      conf.viewRecords(qry, hdrs, clms);
-//
-//}
-// public void viewOwnerWithPetDetails() {
-//    String qry = "SELECT tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_pet.p_breed " +
-//                 "FROM tbl_owner " +
-//                 "LEFT JOIN tbl_pet ON tbl_owner.o_id = tbl_pet.o_id"; 
-//    String[] hdrs = {"OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "PET BREED"};
-//    String[] clms = {"o_id", "o_fname", "o_lname", "p_id", "p_name", "p_breed"};
-//    config conf = new config();
-//    conf.viewRecords(qry, hdrs, clms);
-//}
-       
-    
-//    public void viewOwnerWithPetDetails() {
-//    Scanner sc = new Scanner(System.in);
-//    int ownerId;
-//
-//    while (true) {
-//        System.out.print("Enter the Owner ID: ");
-//        if (sc.hasNextInt()) {
-//            ownerId = sc.nextInt();   
-//       
-//        if (ownerId > 0) {
-//                break;
-//        } else {
-//                System.out.println("You have input an incorrect number. Please enter a positive Owner ID.");
-//            }
-//        } else {
-//            System.out.println("Invalid input. Please enter a valid Owner ID.");
-//            sc.next();
-//        }
-//    }
-//
-//      String qry = "SELECT tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_pet.p_breed " +
-//                 "FROM tbl_owner " +
-//                 "LEFT JOIN tbl_pet ON tbl_owner.o_id = tbl_pet.o_id " +
-//                 "WHERE tbl_owner.o_id = " + ownerId;
-//    
-//      String[] hdrs = {"OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "PET BREED"};
-//      String[] clms = {"o_id", "o_fname", "o_lname", "p_id", "p_name", "p_breed"};   
-//      config conf = new config();
-//      conf.viewRecords(qry, hdrs, clms);
-//}
-
-//    public void viewOwnerWithPetDetails() {
-//    Scanner sc = new Scanner(System.in);
-//    int ownerId;
-//
-//    while (true) {
-//        System.out.print("Enter the Owner ID: ");
-//        if (sc.hasNextInt()) {
-//            ownerId = sc.nextInt();
-//
-//            if (ownerId > 0) {
-//                break;
-//            } else {
-//                System.out.println("You have input an incorrect number. Please enter a positive Owner ID.");
-//            }
-//        } else {
-//            System.out.println("Invalid input. Please enter a valid Owner ID.");
-//            sc.next();
-//        }
-//    }
-//
-//    String qry = "SELECT tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_pet.p_breed, tbl_appointment.date, tbl_appointment.time " +
-//                 "FROM tbl_owner " +
-//                 "LEFT JOIN tbl_pet ON tbl_owner.o_id = tbl_pet.o_id " +
-//                 "LEFT JOIN tbl_appointment ON tbl_pet.p_id = tbl_appointment.p_id " +
-//                 "WHERE tbl_owner.o_id = " + ownerId;
-//
-//    String[] hdrs = {"OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "PET BREED", "APPOINTMENT DATE", "APPOINTMENT TIME"};
-//    String[] clms = {"o_id", "o_fname", "o_lname", "p_id", "p_name", "p_breed", "date", "time"};   
-//    config conf = new config();
-//    System.out.println("\nDisplaying details for Owner ID: " + ownerId + "\n");
-//    conf.viewRecords(qry, hdrs, clms);
-//}
-//    
     public void viewOwnerWithPetDetails() {
-    Scanner sc = new Scanner(System.in);
-    int ownerId;
+      Scanner sc = new Scanner(System.in);
+      int ownerId;
 
-    while (true) {
-        System.out.print("Enter the Owner ID: ");
-        if (sc.hasNextInt()) {
-            ownerId = sc.nextInt();
-
-            if (ownerId > 0) {
+      while (true) {
+          System.out.print("Enter the Owner ID: ");
+          if (sc.hasNextInt()) {
+              ownerId = sc.nextInt();
+  
+          if (ownerId > 0) {
                 break;
-            } else {
-                System.out.println("You have input an incorrect number. Please enter a positive Owner ID.");
+          } else {
+            System.out.println("You have input an incorrect number. Please enter a positive Owner ID.");
             }
-        } else {
-            System.out.println("Invalid input. Please enter a valid Owner ID.");
-            sc.next();
+          } else {
+              System.out.println("Invalid input. Please enter a valid Owner ID.");
+              sc.next();
         }
     }
 
-    String qry = "SELECT tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_pet.p_breed, tbl_appointment.date, tbl_appointment.time " +
-                 "FROM tbl_owner " +
-                 "LEFT JOIN tbl_pet ON tbl_owner.o_id = tbl_pet.o_id " +
-                 "LEFT JOIN tbl_appointment ON tbl_pet.p_id = tbl_appointment.p_id " +
-                 "WHERE tbl_owner.o_id = " + ownerId;
+      String qry = "SELECT tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_pet.p_breed, tbl_appointment.date, tbl_appointment.time " +
+                   "FROM tbl_owner " +
+                   "LEFT JOIN tbl_pet ON tbl_owner.o_id = tbl_pet.o_id " +
+                   "LEFT JOIN tbl_appointment ON tbl_pet.p_id = tbl_appointment.p_id " +
+                   "WHERE tbl_owner.o_id = " + ownerId;
 
-    String[] hdrs = {"OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "PET BREED", "APPOINTMENT DATE", "APPOINTMENT TIME"};
-    String[] clms = {"o_id", "o_fname", "o_lname", "p_id", "p_name", "p_breed", "date", "time"};
-    
-    config conf = new config();
-    System.out.println("\nDisplaying details for Owner ID: " + ownerId + "\n");
-    conf.viewRecords(qry, hdrs, clms);
+      String[] hdrs = {"OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "PET BREED", "APPOINTMENT DATE", "APPOINTMENT TIME"};
+      String[] clms = {"o_id", "o_fname", "o_lname", "p_id", "p_name", "p_breed", "date", "time"};   
+      config conf = new config();
+      System.out.println("\nDisplaying details for Owner ID: " + ownerId + "\n");
+      conf.viewRecords(qry, hdrs, clms);
 }
 
         
@@ -237,49 +135,5 @@ public class Reports {
       conf.viewRecords(qry, hdrs, clms);
     
 }
-    
-    public void viewTodayAppointments() {
-      LocalDate today = LocalDate.now();
-      String qry = "SELECT appointment_id, tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_appointment.date, tbl_appointment.time " +
-             "FROM tbl_appointment " +
-             "LEFT JOIN tbl_owner ON tbl_appointment.o_id = tbl_owner.o_id " +
-             "LEFT JOIN tbl_pet ON tbl_appointment.p_id = tbl_pet.p_id " +
-             "WHERE tbl_appointment.date = '" + today + "'";
-      String[] hdrs = {"APPOINTMENT ID", "OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "DATE", "TIME"};
-      String[] clms = {"appointment_id", "o_id", "o_fname", "o_lname", "p_id", "p_name", "date", "time"};
-      config conf = new config();
-      conf.viewRecords(qry, hdrs, clms);
-    }  
-  
-    public void viewThisWeekAppointments() {
-      LocalDate today = LocalDate.now();
-      LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.MONDAY));
-      LocalDate endOfWeek = today.with(TemporalAdjusters.nextOrSame(java.time.DayOfWeek.SUNDAY));
-     String qry = "SELECT tbl_appointment.appointment_id, tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_appointment.date, tbl_appointment.time " +
-             "FROM tbl_appointment " +
-             "LEFT JOIN tbl_owner ON tbl_appointment.o_id = tbl_owner.o_id " +
-             "LEFT JOIN tbl_pet ON tbl_appointment.p_id = tbl_pet.p_id " +
-             "WHERE tbl_appointment.date BETWEEN '" + startOfWeek + "' AND '" + endOfWeek + "'";
-      String[] hdrs = {"APPOINTMENT ID", "OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "DATE", "TIME"};
-      String[] clms = {"appointment_id", "o_id", "o_fname", "o_lname", "p_id", "p_name", "date", "time"};
-      config conf = new config();
-      conf.viewRecords(qry, hdrs, clms);
-    }
-    
-    public void viewThisMonthAppointments() {
-      LocalDate today = LocalDate.now();
-      LocalDate startOfMonth = today.with(TemporalAdjusters.firstDayOfMonth());
-      LocalDate endOfMonth = today.with(TemporalAdjusters.lastDayOfMonth());
-      String qry = "SELECT tbl_appointment.appointment_id, tbl_owner.o_id, tbl_owner.o_fname, tbl_owner.o_lname, tbl_pet.p_id, tbl_pet.p_name, tbl_appointment.date, tbl_appointment.time " +
-             "FROM tbl_appointment " +
-             "LEFT JOIN tbl_owner ON tbl_appointment.o_id = tbl_owner.o_id " +
-             "LEFT JOIN tbl_pet ON tbl_appointment.p_id = tbl_pet.p_id " +
-             "WHERE tbl_appointment.date BETWEEN '" + startOfMonth + "' AND '" + endOfMonth + "'";
-      String[] hdrs = {"APPOINTMENT ID", "OWNER ID", "OWNER FIRST NAME", "OWNER LAST NAME", "PET ID", "PET NAME", "DATE", "TIME"};
-      String[] clms = {"appointment_id", "o_id", "o_fname", "o_lname", "p_id", "p_name", "date", "time"};
-      config conf = new config();
-      conf.viewRecords(qry, hdrs, clms);
-    }    
-    
     
 }

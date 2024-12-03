@@ -34,7 +34,7 @@ public class Pet {
         }
         
   }
-        
+        Owner os = new Owner();
         Pet pt = new Pet();
         
         switch(action){
@@ -49,7 +49,7 @@ public class Pet {
                 break;
                 
             case 3:
-                pt.viewPetDetails();
+                os.viewOwnerDetails();
                 pt.updatePetDetails();
                 pt.viewPetDetails();
                 break;
@@ -72,32 +72,6 @@ public class Pet {
         
     }while(response.equalsIgnoreCase("yes"));  
     }
-  
-//    public void addPetDetails(){
-//      Scanner sc = new Scanner(System.in);
-//      
-//      do{
-//      System.out.print("Enter Owner ID: ");
-//      String oid = sc.next();
-//      String osql = "SELECT o_id FROM tbl_owner WHERE o_id = ?";
-//      
-//      }while(conf.getSingleValue(osql, oId)==0);
-// 
-//         System.out.println("Owner does not exist, Select Again: ");
-//         oId = sc.nextInt();  
-//   
-//      System.out.print("Enter Pet Name: ");
-//      String pname = sc.next();
-//      System.out.print("Enter Pet Breed: ");
-//      String pbreed = sc.next();
-//      sc.nextLine();
-//      System.out.print("Enter Pet Age: ");
-//      String page = sc.nextLine();  
-//
-//      String qry = "INSERT INTO tbl_pet (p_name, p_breed, p_age) VALUES (?, ?, ?)";
-//      config conf = new config();
-//      conf.addRecord(qry, pname, pbreed, page);
-//}
         
     public void addPetDetails() {
       Scanner sc = new Scanner(System.in);
@@ -110,21 +84,21 @@ public class Pet {
       while (true) {
         System.out.print("Enter the ID of the Owner: ");
         
-        if (sc.hasNextInt()) {
-            oId = sc.nextInt();
+      if (sc.hasNextInt()) {
+          oId = sc.nextInt();
             
       String osql = "SELECT o_id FROM tbl_owner WHERE o_id = ?";
-        if (conf.getSingleValue(osql, oId) != 0) {
-        break;
-        } else {
-            System.out.println("Owner does not exist. Please try again.");
+      if (conf.getSingleValue(osql, oId) != 0) {
+          break;
+     } else {
+     System.out.println("Owner does not exist. Please try again.");
         }
-        } else {
-            System.out.println("Invalid input. Please enter a valid number for Owner ID.");
+     } else {
+     System.out.println("Invalid input. Please enter a valid number for Owner ID.");
             sc.next();
         }
     }
-      
+      sc.nextLine(); 
       System.out.print("Enter Pet Name: ");
       String pname = sc.next();
       System.out.print("Enter Pet Breed: ");
@@ -150,31 +124,64 @@ public class Pet {
     
 }
 
-    private void updatePetDetails(){
-        Scanner sc = new Scanner(System.in);
-        config conf = new config();
-        System.out.println("Enter Pet ID to update: ");
-        int id = sc.nextInt();
-        
-     while(conf.getSingleValue("SELECT p_id FROM tbl_pet WHERE p_id = ?",id)==0){
-        System.out.println("Selected ID doesn't exist!");
-        System.out.println("Select Pet ID Again: ");
-        id = sc.nextInt();     
+ public void updatePetDetails() {
+    Scanner sc = new Scanner(System.in);
+    config conf = new config();
+
+    int ownerId = -1;
+    while (true) {
+        System.out.print("Enter the ID of the Owner: ");
+     if (sc.hasNextInt()) {
+         ownerId = sc.nextInt();
+         String ownerSql = "SELECT o_id FROM tbl_owner WHERE o_id = ?";
+     if (conf.getSingleValue(ownerSql, ownerId) != 0) {
+         break;
+     } else {
+             System.out.println("Owner does not exist. Please try again.");
+            }
+     } else {
+            System.out.println("Invalid input. Please enter a valid number for Owner ID.");
+            sc.next();
         }
-        
-        System.out.print("New Pet Name: ");
-        String pname = sc.next();
-        System.out.print("New Pet Breed: ");
-        String pbreed = sc.next();
-        sc.nextLine();
-        System.out.print("New Pet age: ");
-        String page = sc.nextLine();
-   
-       
-        String qry = "UPDATE tbl_pet SET p_name = ?, p_breed = ?, p_age = ? WHERE p_id = ?";
-        conf.updateRecord(qry, pname, pbreed, page, id);
-        
     }
+
+    System.out.println("\nPets of the selected Owner:");
+    String petSql = "SELECT p_id, p_name FROM tbl_pet WHERE o_id = " + ownerId;
+    String[] columnHeaders = {"Pet ID", "Pet Name"};
+    String[] columnNames = {"p_id", "p_name"};
+    conf.viewRecords(petSql, columnHeaders, columnNames);
+
+    int petId = -1;
+    while (true) {
+        System.out.print("Enter the ID of the Pet: ");
+        if (sc.hasNextInt()) {
+            petId = sc.nextInt();
+            String petSqlCheck = "SELECT p_id FROM tbl_pet WHERE p_id = ? AND o_id = ?";
+        if (conf.getSingleValue(petSqlCheck, petId, ownerId) != 0) {
+            break;
+        } else {
+                System.out.println("Pet does not belong to the selected owner. Please try again.");
+            }
+        } else {
+            System.out.println("Invalid input. Please enter a valid number for Pet ID.");
+            sc.next();
+        }
+    }
+
+    sc.nextLine();
+    System.out.print("Enter new Pet Name: ");
+    String pname = sc.nextLine();
+    System.out.print("Enter new Pet Breed: ");
+    String pbreed = sc.nextLine();
+    System.out.print("Enter new Pet Age: ");
+    String page = sc.nextLine();
+
+    String updateSql = "UPDATE tbl_pet SET p_name = ?, p_breed = ?, p_age = ? WHERE p_id = ?";
+    conf.updateRecord(updateSql, pname, pbreed, page, petId);
+
+    System.out.println("Pet details updated successfully!");
+}
+
     
     private void deletePetDetails(){
     

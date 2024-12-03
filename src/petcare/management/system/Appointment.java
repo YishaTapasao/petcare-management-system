@@ -76,63 +76,19 @@ public class Appointment {
     }while(response.equalsIgnoreCase("yes"));  
     }
     
-//    public void addAppointmentDetails(){
-//       Scanner sc = new Scanner(System.in);
-//       config conf = new config();
-//       
-//       Owner os = new Owner();
-//       os.viewOwnerDetails();
-//
-//    
-//        System.out.print("Enter the ID of the Owner: ");
-//        int oId = sc.nextInt();
-//        
-//     String osql = "SELECT o_id FROM tbl_owner WHERE o_id = ?"; 
-//     while(conf.getSingleValue(osql, oId)==0){
-//         System.out.println("Owner does not exist, Select Again: ");
-//         oId = sc.nextInt();                
-//     }
-//      
-//       Pet pt = new Pet();
-//       pt.viewPetDetails();
-//       
-//        System.out.print("Enter the ID of the Pet: ");
-//        int pId = sc.nextInt();
-//        
-//     String psql = "SELECT p_id FROM tbl_pet WHERE p_id = ?"; 
-//     while(conf.getSingleValue(psql, pId)==0){
-//         System.out.println("Pet does not exist, Select Again: ");
-//         pId = sc.nextInt();                
-//     } 
-//     
-//        sc.nextLine();
-//        System.out.print("Enter Date(yyyy-mm-dd): ");
-//        String date = sc.nextLine();
-//        System.out.print("Enter Time: ");
-//        String time = sc.nextLine();
-//        System.out.print("Enter Reason: ");
-//        String reason = sc.nextLine();
-//     
-//    String qry = "INSERT INTO tbl_appointment (o_id, p_id, date, time, reason) VALUES (?, ?, ?, ?, ?)";
-//    conf.addRecord(qry, oId, pId, date, time, reason);
-//    }
-//    
-    
-    
-    public void addAppointmentDetails() {
+ public void addAppointmentDetails() {
     Scanner sc = new Scanner(System.in);
     config conf = new config();
-
     Owner os = new Owner();
     os.viewOwnerDetails();
-
+    
     System.out.print("Enter the ID of the Owner: ");
     int oId = sc.nextInt();
 
     String osql = "SELECT o_id FROM tbl_owner WHERE o_id = ?";
     while (conf.getSingleValue(osql, oId) == 0) {
-        System.out.println("Owner does not exist, Select Again: ");
-        oId = sc.nextInt();
+          System.out.println("Owner does not exist, Select Again: ");
+          oId = sc.nextInt();
     }
 
     System.out.println("\nPets of the selected Owner:");
@@ -175,34 +131,49 @@ public void viewAppointmentDetails() {
     conf.viewRecords(qry, hdrs, clms);
 }
 
-private void updateAppointmentDetails() {
+
+ public void updateAppointmentDetails() {
     Scanner sc = new Scanner(System.in);
     config conf = new config();
-    
-    System.out.print("Enter Appointment ID to update: ");
-    int id = sc.nextInt();
-    
-    while (conf.getSingleValue("SELECT appointment_id FROM tbl_appointment WHERE appointment_id = ?", id) == 0) {
-        System.out.println("Selected Appointment ID doesn't exist!");
-        System.out.print("Select Appointment ID Again: ");
-        id = sc.nextInt();
+
+    int id = -1;
+
+    while (true) {
+        System.out.print("Enter Appointment ID to update: ");
+        
+        if (sc.hasNextInt()) {
+            id = sc.nextInt();
+
+            String asql = "SELECT appointment_id FROM tbl_appointment WHERE appointment_id = ?";
+            if (conf.getSingleValue(asql, id) != 0) {
+                break;
+            } else {
+                System.out.println("Appointment does not exist. Please try again.");
+            }
+        } else {
+            System.out.println("Invalid input. Please enter a valid number for Appointment ID.");
+            sc.next();
+        }
     }
-    
+
     sc.nextLine();
-    System.out.print("New Appointment Date (yyyy-mm-dd): ");
+    System.out.print("Enter new Appointment Date (yyyy-mm-dd): ");
     String newDate = sc.nextLine();
-    System.out.print("New Appointment Time: ");
-    String newTime = sc.nextLine();
-    System.out.print("New Reason for Appointment: ");
-    String newReason = sc.nextLine();
     
+    System.out.print("Enter new Appointment Time: ");
+    String newTime = sc.nextLine();
+    
+    System.out.print("Enter new Reason for Appointment: ");
+    String newReason = sc.nextLine();
+
     String qry = "UPDATE tbl_appointment SET date = ?, time = ?, reason = ? WHERE appointment_id = ?";
     conf.updateRecord(qry, newDate, newTime, newReason, id);
-    
+
     System.out.println("Appointment updated successfully.");
 }
 
-private void deleteAppointmentDetails() {
+
+  private void deleteAppointmentDetails() {
     Scanner sc = new Scanner(System.in);
     config conf = new config();
 
